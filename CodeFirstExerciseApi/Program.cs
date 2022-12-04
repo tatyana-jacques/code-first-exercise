@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CodeFirstExerciseApi.Context;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<CursoSenaiContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("ServerConnection")));
+
 
 var app = builder.Build();
 

@@ -25,14 +25,21 @@ namespace CodeFirstExerciseApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Turma>>> GetTurmas()
         {
-            return await _context.Turmas.ToListAsync();
+            return await _context.Turmas
+                .Include(x => x.Instrutor)
+                .Include(x => x.Curso)
+                .ToListAsync();
         }
+                
 
         // GET: api/Turma/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Turma>> GetTurma(int id)
         {
-            var turma = await _context.Turmas.FindAsync(id);
+            var turma = await _context.Turmas
+               .Include(x => x.Instrutor)
+               .Include(x => x.Curso)
+               .Where(y => y.Id == id).FirstOrDefaultAsync();
 
             if (turma == null)
             {
@@ -78,9 +85,9 @@ namespace CodeFirstExerciseApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Turma>> PostTurma(Turma turma)
         {
-            if (_context.Turma == null)
+            if (_context.Turmas == null)
             {
-                return Problem ("Entity set 'CodeFirstExerciseApi.Turma' is null")
+                return Problem("Entity set 'CodeFirstExerciseApi.Turma' is null");
             }
             _context.Entry(turma).State = EntityState.Added;
             //_context.Turmas.Add(turma);

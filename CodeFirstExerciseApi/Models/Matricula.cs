@@ -9,7 +9,7 @@ namespace CodeFirstExerciseApi.Models
         [ForeignKey("Turma")]
         public int IdTurma { get; set; }
 
-        [ForeignKey("Curso")]
+        [ForeignKey("Aluno")]
 
         public int IdAluno { get; set; }
 
